@@ -56,13 +56,6 @@ public class Main {
             System.out.print(f + " ");
         }
         System.out.println();*/
-        MyCollection<Integer> myCollection = new MyCollection<Integer>();
-        for (int i = 0; i < 10; i++) {
-            myCollection.add(i);
-        }
-
-        for (Integer aMyCollection : myCollection) {
-            System.out.println(aMyCollection);
-        }
+        
     }
 }
