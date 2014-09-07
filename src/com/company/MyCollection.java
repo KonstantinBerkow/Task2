@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 /**
  * Implementation for Collection like ArrayList I suppose
  */
+@SuppressWarnings("unchecked")
 public class MyCollection<T> implements Collection<T> {
 
     /**

@@ -7,6 +7,7 @@ import java.util.Collections;
 /**
  * Class with two tools: reverser of sentences and shaker sort for Collections and Arrays
  */
+@SuppressWarnings("unchecked")
 public class TwoTools {
     /**
      * This method reverses all words in sentence excluding non letters and digits.
