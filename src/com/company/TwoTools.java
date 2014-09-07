@@ -33,8 +33,6 @@ public class TwoTools {
     public static <T extends Comparable<T>> void myBubbleSort(Collection<T> c) {
         if (c.isEmpty()) return;
         ArrayList<T> tmpArray = new ArrayList<T>(c);
-        //T[] tmpArray = (T[]) new Object[c.size()];//Array.newInstance(c.getClass().getComponentType(), c.size());
-        //c.toArray(tmpArray);
 
         int arrSize = tmpArray.size();
         for (int i = 0; i < arrSize / 2; i++) {
