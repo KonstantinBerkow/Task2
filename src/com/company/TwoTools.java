@@ -1,13 +1,11 @@
 package com.company;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Class with two tools: reverser of sentences and shaker sort for Collections and Arrays
  */
-@SuppressWarnings("unchecked")
 public class TwoTools {
     /**
      * This method reverses all words in sentence excluding non letters and digits.
@@ -34,24 +32,26 @@ public class TwoTools {
      */
     public static <T extends Comparable<T>> void myBubbleSort(Collection<T> c) {
         if (c.isEmpty()) return;
-        T[] tmpArray = (T[]) Array.newInstance(c.getClass().getComponentType(), c.size());//new Object[c.size()];
-        c.toArray(tmpArray);
+        ArrayList<T> tmpArray = new ArrayList<T>(c);
+        //T[] tmpArray = (T[]) new Object[c.size()];//Array.newInstance(c.getClass().getComponentType(), c.size());
+        //c.toArray(tmpArray);
 
-        for (int i = 0; i < tmpArray.length / 2; i++) {
+        int arrSize = tmpArray.size();
+        for (int i = 0; i < arrSize / 2; i++) {
             boolean hasSwapped = false;
-            for (int j = i; j < tmpArray.length - i - 1; j++) {
-                if ((tmpArray[j]).compareTo(tmpArray[j + 1]) > 0) {
-                    T tmp = ((T) tmpArray[j]);
-                    tmpArray[j] = tmpArray[j + 1];
-                    tmpArray[j + 1] = tmp;
+            for (int j = i; j < arrSize - i - 1; j++) {
+                if (tmpArray.get(j).compareTo(tmpArray.get(j + 1)) > 0) {
+                    T tmp = tmpArray.get(j);
+                    tmpArray.set(j, tmpArray.get(j + 1));
+                    tmpArray.set(j + 1, tmp);
                     hasSwapped = true;
                 }
             }
-            for (int j = tmpArray.length - 2 - i; j > i; j--) {
-                if ((tmpArray[j]).compareTo(tmpArray[j - 1]) < 0) {
-                    T tmp = ((T) tmpArray[j]);
-                    tmpArray[j] = tmpArray[j - 1];
-                    tmpArray[j - 1] = tmp;
+            for (int j = arrSize - 2 - i; j > i; j--) {
+                if (tmpArray.get(j).compareTo(tmpArray.get(j - 1)) < 0) {
+                    T tmp = tmpArray.get(j);
+                    tmpArray.set(j, tmpArray.get(j - 1));
+                    tmpArray.set(j - 1, tmp);
                     hasSwapped = true;
                 }
             }
@@ -59,7 +59,9 @@ public class TwoTools {
         }
 
         c.clear();
-        Collections.addAll(c, tmpArray);
+        for (T aTmpArray : tmpArray) {
+            c.add(aTmpArray);
+        }
     }
 
     /**
@@ -69,11 +71,12 @@ public class TwoTools {
      * @param <T>   comparable type of collection
      */
     public static <T extends Comparable<T>> void myBubbleSort(T[] array) {
+        if (array == null || array.length == 0) return;
         for (int i = 0; i < array.length / 2; i++) {
             boolean hasSwapped = false;
             for (int j = i; j < array.length - i - 1; j++) {
                 if (array[j].compareTo(array[j + 1]) > 0) {
-                    T tmp = ((T) array[j]);
+                    T tmp = (array[j]);
                     array[j] = array[j + 1];
                     array[j + 1] = tmp;
                     hasSwapped = true;
@@ -81,7 +84,7 @@ public class TwoTools {
             }
             for (int j = array.length - 2 - i; j > i; j--) {
                 if (array[j].compareTo(array[j - 1]) < 0) {
-                    T tmp = ((T) array[j]);
+                    T tmp = array[j];
                     array[j] = array[j - 1];
                     array[j - 1] = tmp;
                     hasSwapped = true;

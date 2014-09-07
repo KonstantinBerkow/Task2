@@ -1,15 +1,13 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Class to test TwoTools class.
  */
 public class Main {
 
-    static Random rnd = new Random();
+    static Random rnd = new Random(15623);
 
     /**
      * Write your tests here.
@@ -17,60 +15,42 @@ public class Main {
      * @param args args[0] will be used as upper and lower bounds for first test and args[1] - for second
      */
     public static void main(String[] args) {
-        /*int radius = Integer.parseInt(args[0]);
-        int radius1 = Integer.parseInt(args[1]);
-
-        Integer[] classArrayTest = new Integer[radius];
-        for (int i = 0; i < classArrayTest.length; i++) {
-            classArrayTest[i] = rnd.nextInt(radius + 1) - radius / 2;
+        Integer[] rndArray = new Integer[10000];
+        for (int i = 0; i < rndArray.length; i++) {
+            rndArray[i] = rnd.nextInt(1000) - 500;
         }
 
-        System.out.println("Before sort:");
-        for (Integer f : classArrayTest) {
-            System.out.print(f + " ");
-        }
-        System.out.println();
+        List<Integer> list1 = new LinkedList<Integer>();
+        List<Integer> list2 = new LinkedList<Integer>();
 
-        TwoTools.myBubbleSort(classArrayTest);
+        Integer[] arr1 = rndArray.clone();
+        Integer[] arr2 = rndArray.clone();
 
-        System.out.println("After sort:");
-        for (Integer f : classArrayTest) {
-            System.out.print(f + " ");
-        }
-        System.out.println();
-
-        ArrayList<Integer> arrListTest = new ArrayList<Integer>();
-        for (int i = 0; i < radius1; i++) {
-            arrListTest.add(i, rnd.nextInt(radius1 + 1) - radius1 / 2);
+        for (Integer aRndArray : rndArray) {
+            list1.add(aRndArray);
+            list2.add(aRndArray);
         }
 
-        System.out.println("Before sort:");
-        for (Integer f : arrListTest) {
-            System.out.print(f + " ");
-        }
-        System.out.println();
+        long mySortTime = System.currentTimeMillis();
+        TwoTools.myBubbleSort(list1);
+        mySortTime = System.currentTimeMillis() - mySortTime;
 
-        TwoTools.myBubbleSort(arrListTest);
+        long collectionsSortTime = System.currentTimeMillis();
+        Collections.sort(list2);
+        collectionsSortTime = System.currentTimeMillis() - collectionsSortTime;
 
-        System.out.println("After sort:");
-        for (Integer f : arrListTest) {
-            System.out.print(f + " ");
-        }
-        System.out.println();*/
-        MyCollection<Integer> myCollection = new MyCollection<Integer>();
-        for (int i = 0; i <= 10; i++) {
-            myCollection.add(i);
-        }
+        System.out.println("My sort: " + mySortTime);
+        System.out.println("Collections.sort time: " + collectionsSortTime);
 
-        System.out.println("Size: " + myCollection.size());
+        long mySortTime2 = System.currentTimeMillis();
+        TwoTools.myBubbleSort(arr1);
+        mySortTime2 = System.currentTimeMillis() - mySortTime2;
 
-        for (Iterator<Integer> iterator = myCollection.iterator(); iterator.hasNext(); ) {
-            if (iterator.next() % 2 == 0) iterator.remove();
-        }
+        long collectionsSortTime2 = System.currentTimeMillis();
+        Arrays.sort(arr2);
+        collectionsSortTime2 = System.currentTimeMillis() - collectionsSortTime2;
 
-        for (Integer aMyCollection : myCollection) {
-            System.out.println(aMyCollection);
-        }
-
+        System.out.println("My sort: " + mySortTime2);
+        System.out.println("Arrays.sort time: " + collectionsSortTime2);
     }
 }

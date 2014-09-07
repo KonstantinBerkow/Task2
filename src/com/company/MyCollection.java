@@ -227,22 +227,6 @@ public class MyCollection<T> implements Collection<T> {
      */
     @Override
     public boolean retainAll(@NotNull Collection<?> c) {
-        /*try {
-            boolean changed = false;
-            MyCollection<T> tmp = new MyCollection<T>();
-            for (Iterator<?> it = c.iterator(); it.hasNext(); ) {
-                Object current = it.next();
-                if (this.contains(current)) {
-                    tmp.add((T) current);
-                    changed = true;
-                }
-            }
-            this.body = tmp.body;
-            this.size = tmp.size;
-            return changed;
-        } catch (Exception e) {
-            return false;
-        }*/
         boolean changed = false;
         for (Iterator<T> it = this.iterator(); it.hasNext(); ) {
             T current = it.next();
@@ -259,6 +243,9 @@ public class MyCollection<T> implements Collection<T> {
      */
     @Override
     public void clear() {
+        for (int i = 0; i < body.length; i++) {
+            body[i] = null;
+        }
         size = 0;
     }
 
