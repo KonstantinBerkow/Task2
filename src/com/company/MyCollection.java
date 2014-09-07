@@ -1,7 +1,5 @@
 package com.company;
 
-import com.sun.istack.internal.NotNull;
-
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Iterator;
@@ -10,7 +8,6 @@ import java.util.NoSuchElementException;
 /**
  * Implementation for Collection like ArrayList I suppose
  */
-@SuppressWarnings("NullableProblems")
 public class MyCollection<T> implements Collection<T> {
 
     /**
@@ -61,7 +58,6 @@ public class MyCollection<T> implements Collection<T> {
      *
      * @return Iterator for this collection.
      */
-    @SuppressWarnings("NullableProblems")
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
@@ -86,6 +82,7 @@ public class MyCollection<T> implements Collection<T> {
 
             @Override
             public void remove() {
+                --position;
                 System.arraycopy(body, position + 1, body, position, size - 1 - position);
                 size--;
             }
@@ -98,25 +95,25 @@ public class MyCollection<T> implements Collection<T> {
      *
      * @return Array with all elements of collection.
      */
-    @SuppressWarnings("NullableProblems")
     @Override
     public Object[] toArray() {
         Object[] result = new Object[size];
         Object[] tmp = body.clone();
-        System.arraycopy(tmp, 0, result, 0, size);
+        for (int i = 0; i < size; i++) {
+            result[i] = tmp[i];
+        }
         return result;
     }
 
     /**
      * Puts a collection into given array if enough space? otherwise creates another array with enough space for collection.
      *
-     * @NotNull a
-     * @param  a   Array in which convert collection.
+     * @param a   Array in which convert collection.
      * @param <E> Type of array.
      * @return The array representation of collection.
      */
     @Override
-    public <E> E[] toArray(E[]  a) {
+    public <E> E[] toArray(E[] a) {
         E[] tmp = size <= a.length ? a : (E[]) Array.newInstance(a.getClass().getComponentType(), size);
         for (int i = 0; i < size; i++)
             tmp[i] = (E) body[i];
@@ -141,7 +138,9 @@ public class MyCollection<T> implements Collection<T> {
         } else {
             try {
                 T[] tmp = (T[]) Array.newInstance(t.getClass(), size * 2);
-                System.arraycopy(body, 0, tmp, 0, size);
+                for (int i = 0; i < size; i++) {
+                    tmp[i] = body[i];
+                }
                 tmp[size++] = t;
                 body = tmp;
                 return true;
@@ -169,7 +168,9 @@ public class MyCollection<T> implements Collection<T> {
             }
         }
         if (!found) return false;
-        System.arraycopy(body, ind + 1, body, ind, size - 1 - ind);
+        for (int i = ind; i < size - 1; i++) {
+            body[i] = body[i + 1];
+        }
         size--;
         return true;
     }
@@ -181,7 +182,7 @@ public class MyCollection<T> implements Collection<T> {
      * @return True if this collection contains all of the elements in the specified collection
      */
     @Override
-    public boolean containsAll(@SuppressWarnings("NullableProblems") Collection<?> c) {
+    public boolean containsAll(Collection<?> c) {
         for (Object o : c) {
             if (!this.contains(o)) return false;
         }
@@ -195,7 +196,7 @@ public class MyCollection<T> implements Collection<T> {
      * @return <i>True</i> if this collection changed as a result of the call
      */
     @Override
-    public boolean addAll(@SuppressWarnings("NullableProblems") Collection<? extends T> c) {
+    public boolean addAll(Collection<? extends T> c) {
         for (T o : c) {
             if (!this.add(o)) return false;
         }
@@ -209,7 +210,7 @@ public class MyCollection<T> implements Collection<T> {
      * @return <b>true</b> if this collection changed as a result of the call
      */
     @Override
-    public boolean removeAll(@SuppressWarnings("NullableProblems") Collection<?> c) {
+    public boolean removeAll(Collection<?> c) {
         int initialSize = size;
         for (Object o : c) {
             this.remove(o);
@@ -224,11 +225,12 @@ public class MyCollection<T> implements Collection<T> {
      * @return true if this collection changed as a result of the call.
      */
     @Override
-    public boolean retainAll(@SuppressWarnings("NullableProblems") Collection<?> c) {
+    public boolean retainAll(Collection<?> c) {
         /*try {
             boolean changed = false;
             MyCollection<T> tmp = new MyCollection<T>();
-            for (Object current : c) {
+            for (Iterator<?> it = c.iterator(); it.hasNext(); ) {
+                Object current = it.next();
                 if (this.contains(current)) {
                     tmp.add((T) current);
                     changed = true;

@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -56,9 +57,20 @@ public class Main {
             System.out.print(f + " ");
         }
         System.out.println();*/
+        MyCollection<Integer> myCollection = new MyCollection<Integer>();
+        for (int i = 0; i <= 10; i++) {
+            myCollection.add(i);
+        }
 
+        System.out.println("Size: " + myCollection.size());
 
+        for (Iterator<Integer> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            if (iterator.next() % 2 == 0) iterator.remove();
+        }
 
+        for (Integer aMyCollection : myCollection) {
+            System.out.println(aMyCollection);
+        }
 
     }
 }
