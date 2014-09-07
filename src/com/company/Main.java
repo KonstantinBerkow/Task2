@@ -11,8 +11,6 @@ public class Main {
 
     /**
      * Write your tests here.
-     *
-     * @param args args[0] will be used as upper and lower bounds for first test and args[1] - for second
      */
     public static void main(String[] args) {
         Integer[] rndArray = new Integer[10000];
