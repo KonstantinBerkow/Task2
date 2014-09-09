@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 /**
  * Implementation for Collection like ArrayList I suppose
  */
-@SuppressWarnings("unchecked")
 public class MyCollection<T> implements Collection<T> {
 
     /**
@@ -122,8 +121,8 @@ public class MyCollection<T> implements Collection<T> {
         for (int i = 0; i < size; i++) {
             tmp[i] = ((E) body[i]);
         }
-        a = tmp;
-        return a;
+        a[size] = null;
+        return tmp;
     }
 
     /**

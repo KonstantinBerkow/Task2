@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Main {
 
-    static Random rnd = new Random(15623);
+    static final Random rnd = new Random(42);
 
     /**
      * Write your tests here.
@@ -37,6 +37,8 @@ public class Main {
         Collections.sort(list2);
         collectionsSortTime = System.currentTimeMillis() - collectionsSortTime;
 
+        System.out.println("Sort demonstration:");
+
         System.out.println("My sort: " + mySortTime);
         System.out.println("Collections.sort time: " + collectionsSortTime);
 
@@ -50,5 +52,59 @@ public class Main {
 
         System.out.println("My sort: " + mySortTime2);
         System.out.println("Arrays.sort time: " + collectionsSortTime2);
+
+        System.out.println("MyCollection demonstration:");
+        MyCollection<String> myCollection = new MyCollection<String>();
+        System.out.println("Initial size: " + myCollection.size());
+        System.out.println("Is empty? - " + myCollection.isEmpty());
+
+        String[] arr = {"Andy", "Mary", "Buffalo", "Java", "Ave", "Froti"};
+        myCollection.addAll(Arrays.asList(arr));
+
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
+
+        System.out.println("Remove from collection all words with even length:");
+        for (Iterator<String> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            if (iterator.next().length() % 2 == 0) iterator.remove();
+        }
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
+
+        myCollection.add("OSTtring");
+        myCollection.add("TSTtring");
+
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
+
+        myCollection.remove("OSTtring");
+
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
+
+        String[] arrX = {"Froti", "Vrete"};
+        myCollection.removeAll(Arrays.asList(arrX));
+
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
+
+        String[] arrX2 = {"Buffalo"};
+
+        myCollection.retainAll(Arrays.asList(arrX2));
+
+        System.out.println("Content of myCollection:");
+        for (Iterator<?> iterator = myCollection.iterator(); iterator.hasNext(); ) {
+            System.out.println(iterator.next());
+        }
     }
 }
